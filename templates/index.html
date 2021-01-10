@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      rel="icon"
+      type="image/png"
+      href="{%static 'images/icons/favicon.ico' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{%static 'vendor/bootstrap/css/bootstrap.min.css'%}"
+    />
+    <title>proje</title>
+    
+    <style>
+        .underline {
+            text-decoration-line: underline;
+            text-decoration-color: red;         
+        }
+    </style>
+</head>
+<body>
+    <div style="margin-top: 100px" class="container">
+        <h3>Todo List</h3>
+        <hr> 
+
+        <form action="addTodo" method="POST">
+            {% csrf_token %} <!--Bu ifade her form içinde olmalıdır. Bir atağı önlemek amacıyla django tarafından geliştirilmiş.-->
+            <div class="form-group">
+              <label for="formGroupExampleInput">Todo Başlık</label>
+              <input type="text" name = "title" class="form-control" id="formGroupExampleInput" placeholder="Todo başlığınızı giriniz.">
+            </div>
+            <button type = "submit" class="btn btn-danger">submit</button>
+          </form>
+
+          <hr>
+          
+          {% if todos %}
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Todo Başlık</th>
+                <th scope="col">Todo Durum</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody><!--
+                {% for todo in todos %}
+                  <tr>
+                      <th scope="row">{{todo.id}}</th>
+                      <td>{{todo.title}}</td>
+                      <td>{{todo.completed}}</td>
+                      <td><a href="/update/{{todo.id}}" class="btn btn-danger">Güncelle</a></td>
+                      <td><a href="/delete/{{todo.id}}" class="btn btn-danger">Sil </a></td>
+                  </tr>
+                {% endfor %}
+                -->
+            </tbody>
+          </table>
+          {% else %}
+            <div class="alert alert-danger">
+                Herhangi bir todonuz bulunmuyor...
+            </div>
+          {% endif %}
+    </div>
+
+    <p>sayi1 = {{number1}}</p>
+    <p>sayi2 = {{number2}}</p>
+    
+    {% if number1 == 10 %}
+        <p>Sayı 10'a eşit.</p>
+    {% else %}
+        <p>Sayı 10'a eşit değil. </p>
+    {% endif %}
+
+    {% for number in numbers %}
+        <p>{{number}}</p>
+    {% endfor %}
+
+</body>
+</html>
